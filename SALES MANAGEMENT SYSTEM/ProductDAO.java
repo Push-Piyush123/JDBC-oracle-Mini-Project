@@ -31,7 +31,7 @@ public class ProductDAO {
 
             System.out.print("Enter Stock Quantity: ");
             int stock = sc.nextInt();
-            sc.nextLine(); // 🔥 important
+            sc.nextLine(); 
 
             String query = "INSERT INTO products (product_name, category, unit_price, stock_quantity) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(query);
