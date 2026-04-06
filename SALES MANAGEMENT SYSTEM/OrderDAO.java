@@ -10,13 +10,13 @@ public class OrderDAO {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con = DriverManager.getConnection(
-                "jdbc:oracle:thin:@localhost:1521:XE", "hr", "hr");
+                "jdbc:oracle:thin:@localhost:1521:XE", "", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // 10. Place Order (FIXED FOR ORACLE 🔥)
+    // 10. Place Order 
     public void placeOrder() {
         try {
             System.out.print("Enter Customer ID: ");
@@ -36,7 +36,7 @@ public class OrderDAO {
                 orderId = seqRs.getInt(1);
             }
 
-            // 🔥 Step 2: Insert into orders
+            // Step 2: Insert into orders
             String orderQuery = "INSERT INTO orders (order_id, customer_id, shipping_address) VALUES (?, ?, ?)";
             PreparedStatement psOrder = con.prepareStatement(orderQuery);
 
@@ -74,7 +74,7 @@ public class OrderDAO {
                 double subtotal = price * qty;
                 total += subtotal;
 
-                // 🔥 Insert into order_items
+                //  Insert into order_items
                 String itemQuery = "INSERT INTO order_items (order_id, product_id, quantity, unit_price, subtotal) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement psItem = con.prepareStatement(itemQuery);
 
@@ -92,7 +92,7 @@ public class OrderDAO {
                 if (!choice.equalsIgnoreCase("y")) break;
             }
 
-            // 🔥 Update total amount
+            //  Update total amount
             String updateQuery = "UPDATE orders SET total_amount=? WHERE order_id=?";
             PreparedStatement psUpdate = con.prepareStatement(updateQuery);
             psUpdate.setDouble(1, total);
@@ -128,7 +128,7 @@ public class OrderDAO {
         }
     }
 
-    // 12. View Order Details (JOIN 🔥)
+    // 12. View Order Details (JOIN )
     public void viewOrderDetails() {
         try {
             System.out.print("Enter Order ID: ");
